@@ -111,7 +111,7 @@ convergenceFunc(@fRoot, @f, a, b, n, convType3);
 clc;
 fourierApprox(@(x) exp(x), -10, 3, 10, 'Legendre')
 fourierApprox(@(x) x, -5, 5, 40, 'Chebyshev')
-fourierApprox(@(x) sin(x), -4, 6, 20, 'Trigonometry') % смотри теорему Дирихле 
+fourierApprox(@(x) sin(x), -4, 6, 20, 'Trigonometry')
 clear;
 
 %% Paragraph 6
@@ -151,13 +151,13 @@ for i = 2:length(y)-1
     end
 end
 y_max = max(y);
-x_max = find(y == y_max); % индексы всех максимумов
-indx_max = x_max(1); % индекс 1-го максимума
-plot(x, y, x_local_min, y_local_min, 'r*', x(indx_max), y_max, 'g*'); % отметили минимумы и максимум и нарисовали график
+x_max = find(y == y_max); % ГЁГ­Г¤ГҐГЄГ±Г» ГўГ±ГҐГµ Г¬Г ГЄГ±ГЁГ¬ГіГ¬Г®Гў
+indx_max = x_max(1); % ГЁГ­Г¤ГҐГЄГ± 1-ГЈГ® Г¬Г ГЄГ±ГЁГ¬ГіГ¬Г 
+plot(x, y, x_local_min, y_local_min, 'r*', x(indx_max), y_max, 'g*'); 
 
 hold on;
-x_indx_min_1 = find(x_local_min > x(indx_max)); % смотрим минимумы справа от максимума
-x_indx_min_2 = find(x_local_min < x(indx_max)); % смотрим минимумы слева от максимума
+x_indx_min_1 = find(x_local_min > x(indx_max)); 
+x_indx_min_2 = find(x_local_min < x(indx_max)); 
 
 delta_1 = -1;
 if ~isempty(x_indx_min_1)
@@ -215,27 +215,22 @@ contour(X, Y, Z, 10);
 
 fig = figure;
 
-z_max = Z(2:h-1, 2:h-1) > Z(2:h-1, 1:h-2); % красный квадрат | <- 
-z_max = z_max & (Z(2:h-1, 2:h-1) > Z(1:h-2, 2:h-1)); % зеленый квадрат | ? 
-z_max = z_max & (Z(2:h-1, 2:h-1) > Z(2:h-1, 3:h)); % синий квадрат | ->
-z_max = z_max & (Z(2:h-1, 2:h-1) > Z(3:h, 2:h-1)); % серый квадрат | ?
+z_max = Z(2:h-1, 2:h-1) > Z(2:h-1, 1:h-2); 
+z_max = z_max & (Z(2:h-1, 2:h-1) > Z(1:h-2, 2:h-1));
+z_max = z_max & (Z(2:h-1, 2:h-1) > Z(2:h-1, 3:h)); 
+z_max = z_max & (Z(2:h-1, 2:h-1) > Z(3:h, 2:h-1)); 
 [i_max, j_max] = find(z_max);
 
-z_min = Z(2:h-1, 2:h-1) < Z(2:h-1, 1:h-2); % красный квадрат
-z_min = z_min & (Z(2:h-1, 2:h-1) < Z(1:h-2, 2:h-1)); % зеленый квадрат
-z_min = z_min & (Z(2:h-1, 2:h-1) < Z(2:h-1, 3:h)); % синий квадрат
-z_min = z_min & (Z(2:h-1, 2:h-1) < Z(3:h, 2:h-1)); % серый квадрат
+z_min = Z(2:h-1, 2:h-1) < Z(2:h-1, 1:h-2);
+z_min = z_min & (Z(2:h-1, 2:h-1) < Z(1:h-2, 2:h-1));
+z_min = z_min & (Z(2:h-1, 2:h-1) < Z(2:h-1, 3:h));
+z_min = z_min & (Z(2:h-1, 2:h-1) < Z(3:h, 2:h-1));
 [i_min, j_min] = find(z_min);
 
-% +1, т.к. мы изначально считали без краёв и нужно вернуть порядок
 i_max = i_max + 1; 
 j_max = j_max + 1;
 i_min = i_min + 1;
 j_min = j_min + 1;
-
-% i_max и тд - i-е индексы максимума
-% X(i_max, j_max) - матрица, где на диагонали стоят нужные нам значения
-% diag(X(i_max, j_max)) - искомый вектор
 
 s = surf(X, Y, Z, 'EdgeColor', 'none');
 colormap summer;
@@ -252,19 +247,18 @@ for i = 1:n
     M(j) = getframe(fig);
     %M(j) = getframe();
     s.ZData = sin(X + delta) + cos(Y - delta);
-    z_max = s.ZData(2:h-1, 2:h-1) > s.ZData(2:h-1, 1:h-2); % красный квадрат | <- 
-    z_max = z_max & (s.ZData(2:h-1, 2:h-1) > s.ZData(1:h-2, 2:h-1)); % зеленый квадрат | ? 
-    z_max = z_max & (s.ZData(2:h-1, 2:h-1) > s.ZData(2:h-1, 3:h)); % синий квадрат | ->
-    z_max = z_max & (s.ZData(2:h-1, 2:h-1) > s.ZData(3:h, 2:h-1)); % серый квадрат | ?
+    z_max = s.ZData(2:h-1, 2:h-1) > s.ZData(2:h-1, 1:h-2);
+    z_max = z_max & (s.ZData(2:h-1, 2:h-1) > s.ZData(1:h-2, 2:h-1));
+    z_max = z_max & (s.ZData(2:h-1, 2:h-1) > s.ZData(2:h-1, 3:h));
+    z_max = z_max & (s.ZData(2:h-1, 2:h-1) > s.ZData(3:h, 2:h-1));
     [i_max, j_max] = find(z_max);
 
-    z_min = s.ZData(2:h-1, 2:h-1) < s.ZData(2:h-1, 1:h-2); % красный квадрат
-    z_min = z_min & (s.ZData(2:h-1, 2:h-1) < s.ZData(1:h-2, 2:h-1)); % зеленый квадрат
-    z_min = z_min & (s.ZData(2:h-1, 2:h-1) < s.ZData(2:h-1, 3:h)); % синий квадрат
-    z_min = z_min & (s.ZData(2:h-1, 2:h-1) < s.ZData(3:h, 2:h-1)); % серый квадрат
+    z_min = s.ZData(2:h-1, 2:h-1) < s.ZData(2:h-1, 1:h-2);
+    z_min = z_min & (s.ZData(2:h-1, 2:h-1) < s.ZData(1:h-2, 2:h-1));
+    z_min = z_min & (s.ZData(2:h-1, 2:h-1) < s.ZData(2:h-1, 3:h));
+    z_min = z_min & (s.ZData(2:h-1, 2:h-1) < s.ZData(3:h, 2:h-1));
     [i_min, j_min] = find(z_min);
 
-    % +1, т.к. мы изначально считали без краёв и нужно вернуть порядок
     i_max = i_max + 1; 
     j_max = j_max + 1;
     i_min = i_min + 1;
@@ -292,9 +286,6 @@ for j = 1:length(M)
 end
 close(v);
 
-
-t = matfile('Animation_mat.mat','Writable',true);
-t.M = M;
 
 disp('NO PROBLEM');
 
@@ -352,7 +343,7 @@ clear;
 clc;
 
 g = @(x) x(1)^2 + x(2)^2 - 1;
-x0 = [0, 0]; %начальная точка в середине области
+x0 = [0, 0]; 
 A = [];
 b = [];
 Aeq = [];
@@ -385,7 +376,7 @@ drawSet(@rho_square, N, params);
 
 g = @(x) x(1)^2 + x(2)^2 - 1;
 
-x0 = [0, 0]; %начальная точка в середине области
+x0 = [0, 0];
 A = [];
 b = [];
 Aeq = [];
